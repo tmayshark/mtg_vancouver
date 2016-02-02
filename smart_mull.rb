@@ -53,7 +53,7 @@ module Mulligan
     #we define keepable as 4 or more cards with at least 3 lands
     def keepable_hand
       keepable = false
-      if @hand.count('land') >= 3 && @hand.size > 5
+      if @hand.count('land') >= 3 && @hand.count('land') <= 4 && @hand.size > 5
         keepable = true
       elsif
       @hand.count('land') >= 3 && @hand.count('low_curve') >= 1 && @hand.size >= 5
@@ -137,7 +137,7 @@ module Mulligan
         params = {:land_count=>@land_count, :ramp_count=>5, :low_curve_count=>15}
         loop = Simulator.new(@iterations, params)
         res = loop.result
-        puts "With #{@land_count} lands, #{res[:keepable]} keepable hands == #{res[:keepable].to_f / @iterations.to_f * 100}%"
+        puts "    With #{@land_count} lands, #{res[:keepable]} keepable hands == #{res[:keepable].to_f / @iterations.to_f * 100}%"
         @land_count += 1
       end
     end
